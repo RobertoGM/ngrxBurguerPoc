@@ -1,0 +1,11 @@
+<mat-toolbar color="primary">
+  <div fxLayout="row" fxFlex>
+    <h1>Burguer Station</h1>
+    <span fxFlex></span>
+    <span>Welcome</span>
+    <button mat-button [matMenuTriggerFor]="menu">{{user.name}}</button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logoutPressed()">Log out</button>
+    </mat-menu>
+  </div>
+</mat-toolbar>

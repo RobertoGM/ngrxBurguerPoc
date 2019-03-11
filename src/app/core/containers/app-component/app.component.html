@@ -1,0 +1,2 @@
+<app-header *ngIf="userLogged$ | async as userLogged" [user]="userLogged" (logout)="logout()"></app-header>
+<router-outlet></router-outlet>
