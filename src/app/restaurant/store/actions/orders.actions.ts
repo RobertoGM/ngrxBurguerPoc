@@ -8,6 +8,7 @@ export enum OrderActionTypes {
   LoadIngredientsSuccess = '[Orders] Load ingredients success',
   LoadIngredientsFail = '[Orders] Load ingredients fail',
   SelectIngredient = '[Orders] Ingredient selected',
+  RemoveIngredient = '[Orders] Ingredient removed',
   SelectBaseMeat = '[Orders] Base meat selected',
   SelectMenu = '[Orders] Menu selected'
 }
@@ -41,6 +42,12 @@ export class SelectIngredient implements Action {
   constructor(public payload: Ingredient) {}
 }
 
+export class RemoveIngredient implements Action {
+  readonly type = OrderActionTypes.RemoveIngredient;
+
+  constructor(public payload: Ingredient) { }
+}
+
 export class SelectBaseMeat implements Action {
   readonly type = OrderActionTypes.SelectBaseMeat;
 
@@ -53,4 +60,5 @@ export type OrderActionUnion =
   | LoadIngredientsFail
   | SelectMenu
   | SelectIngredient
+  | RemoveIngredient
   | SelectBaseMeat;

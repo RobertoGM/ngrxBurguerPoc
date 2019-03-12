@@ -1,4 +1,10 @@
-import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
+import {
+  Component,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges
+} from '@angular/core';
 import { Menu } from '../../models/menu.model';
 import { Ingredient } from '../../models/ingredients.model';
 
@@ -12,6 +18,7 @@ export class MenuOrderComponent implements OnChanges {
   @Input() contentSelection: Menu;
   @Input() contentSelectionArray: Ingredient[];
   @Output() selected = new EventEmitter<Menu>();
+  @Output() remove = new EventEmitter<Menu>();
 
   ingredientSelected: boolean;
 
@@ -24,6 +31,8 @@ export class MenuOrderComponent implements OnChanges {
   }
 
   selection(): void {
-    this.selected.emit(this.content);
+    this.ingredientSelected
+    ? this.remove.emit(this.content)
+    : this.selected.emit(this.content);
   }
 }

@@ -34,8 +34,9 @@
       [content]="ingredient"
       [contentSelectionArray]="selectedIngredients$ | async"
       (selected)="ingredientSelected($event)"
+      (remove)="ingredientRemoved($event)"
     ></app-menu-order>
   </div>
 
-  <h1>TOTAL PRICE: {{getOrderPrice$ | async}}</h1>
+  <h1>TOTAL PRICE: {{getOrderPrice$ | async}}€</h1>
 </div>

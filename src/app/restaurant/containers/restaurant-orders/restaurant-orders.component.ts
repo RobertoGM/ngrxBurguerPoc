@@ -27,9 +27,7 @@ export class RestaurantOrdersComponent implements OnInit {
     select(OrderSelectors.getSelectedIngredients)
   );
 
-  getOrderPrice$ = this.store.pipe(
-    select(OrderSelectors.getOrderPrice)
-  );
+  getOrderPrice$ = this.store.pipe(select(OrderSelectors.getOrderPrice));
 
   constructor(private store: Store<MenuState.State>) {}
 
@@ -48,5 +46,9 @@ export class RestaurantOrdersComponent implements OnInit {
 
   ingredientSelected(ingredient: Ingredient): void {
     this.store.dispatch(new OrderActions.SelectIngredient(ingredient));
+  }
+
+  ingredientRemoved(ingredient: Ingredient): void {
+    this.store.dispatch(new OrderActions.RemoveIngredient(ingredient));
   }
 }

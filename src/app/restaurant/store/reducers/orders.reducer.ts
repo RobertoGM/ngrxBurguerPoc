@@ -80,25 +80,27 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
 
     case OrderActionTypes.SelectIngredient: {
       let entities;
-      if (state.ingredients[action.payload.id]) {
-        const {
-          [action.payload.id]: removed,
-          ...ingredientEntities
-        } = state.ingredients;
-        return {
-          ...state,
-          ingredients: ingredientEntities
-        };
-      } else {
-        entities = {
-          ...state.ingredients,
-          [action.payload.id]: action.payload
-        };
-        return {
-          ...state,
-          ingredients: entities
-        };
-      }
+      entities = {
+        ...state.ingredients,
+        [action.payload.id]: action.payload
+      };
+      return {
+        ...state,
+        menuSelected: undefined,
+        ingredients: entities
+      };
+    }
+
+    case OrderActionTypes.RemoveIngredient: {
+      const {
+        [action.payload.id]: removed,
+        ...ingredientEntities
+      } = state.ingredients;
+      return {
+        ...state,
+        menuSelected: undefined,
+        ingredients: ingredientEntities
+      };
     }
 
     default: {
