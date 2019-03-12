@@ -1,14 +1,14 @@
-<mat-card>
+<mat-card class="menu-card-body">
   <mat-card-header>
     <mat-card-title>{{menu.name}}</mat-card-title>
-    <mat-card-subtitle><span>{{menu.price}}</span> - <span>{{menu.description}}</span></mat-card-subtitle>
+    <mat-card-subtitle><span>{{menu.price}}€</span> - <span>{{menu.description}}</span></mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-list>
       <mat-list-item *ngFor="let ingredient of menu.ingredients">{{ingredient}}</mat-list-item>
     </mat-list>
-    <div fxLayout="row">
-      <mat-checkbox [disabled]="true" [checked]="menu.fries">Fries included</mat-checkbox>
+    <div fxLayout="row" fxLayoutAlign="start center">
+      <mat-checkbox class="push-right" [disabled]="true" [checked]="menu.fries">Fries included</mat-checkbox>
       <mat-checkbox [disabled]="true" [checked]="menu.drink">Drink included</mat-checkbox>
     </div>
   </mat-card-content>

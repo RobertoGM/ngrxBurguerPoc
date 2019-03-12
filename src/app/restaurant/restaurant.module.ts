@@ -13,7 +13,9 @@ import { MatCheckboxModule } from '@angular/material/checkbox';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 import { reducers } from './store/reducers';
-import { AuthEffects } from './store/effects/menu.effects';
+import { MenuEffects } from './store/effects/menu.effects';
+import { MenuOrderComponent } from './components/menu-order/menu-order.component';
+import { OrderEffects } from './store/effects/order.effects';
 
 const routes: Routes = [
   {
@@ -35,13 +37,14 @@ const routes: Routes = [
     RestaurantLandpageComponent,
     RestaurantMenusComponent,
     RestaurantOrdersComponent,
-    MenuCardComponent
+    MenuCardComponent,
+    MenuOrderComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     StoreModule.forFeature('restaurant', reducers),
-    EffectsModule.forFeature([AuthEffects]),
+    EffectsModule.forFeature([MenuEffects, OrderEffects]),
     FlexLayoutModule,
     MatCardModule,
     MatButtonModule,

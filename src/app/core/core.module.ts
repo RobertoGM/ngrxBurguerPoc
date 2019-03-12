@@ -10,9 +10,10 @@ import { StoreRouterConnectingModule } from '@ngrx/router-store';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
+import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent],
+  declarations: [AppComponent, HeaderComponent, NavTabsComponent],
   imports: [
     CommonModule,
     StoreModule.forRoot(reducers),

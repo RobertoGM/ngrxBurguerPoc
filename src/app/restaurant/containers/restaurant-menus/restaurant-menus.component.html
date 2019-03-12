@@ -1,3 +1,11 @@
-<button mat-button color="primary" routerLink="/"> Back to landpage </button>
-MENUS:
-<app-menu-card *ngFor="let menu of menus$ | async" [menu]="menu"></app-menu-card>
+<div class="menu-body" fxLayout="column" fxFlex>
+  <div fxLayoutAlign="start">
+    <button mat-button color="primary" routerLink="/">Back to landpage</button>
+  </div>
+  <div>
+    MENUS:
+  </div>
+  <div fxLayout="row" fxFlexLayoutAlign="space-around">
+    <app-menu-card *ngFor="let menu of menus$ | async" [menu]="menu"></app-menu-card>
+  </div>
+</div>

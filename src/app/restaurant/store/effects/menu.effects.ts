@@ -9,7 +9,7 @@ import { Menu } from '../../models/menu.model';
 
 
 @Injectable()
-export class AuthEffects {
+export class MenuEffects {
   @Effect()
   LoadMenu$ = this.actions$.pipe(
     ofType(MenuActionTypes.LoadMenu),

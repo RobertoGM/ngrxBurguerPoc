@@ -1,2 +1,33 @@
-<button mat-button color="primary" routerLink="/"> Back to landpage </button>
-ORDERS:
+<div class="menu-body" fxLayout="column" fxFlex>
+  <div fxLayoutAlign="start">
+    <button mat-button color="primary" routerLink="/">Back to landpage</button>
+  </div>
+  <div>
+    Select one of our menus:
+  </div>
+  <div fxLayout="row" fxFlexLayoutAlign="space-around">
+    <app-menu-order
+      *ngFor="let menu of (menus$ | async)"
+      [content]="menu"
+    ></app-menu-order>
+  </div>
+  <h1>Or maybe you can select your custom burguer</h1>
+    <div>
+    Select one of our base meats:
+  </div>
+  <div fxLayout="row" fxFlexLayoutAlign="space-around">
+    <app-menu-order
+      *ngFor="let baseMeat of (baseMeats$ | async)"
+      [content]="baseMeat"
+    ></app-menu-order>
+  </div>
+  <div>
+    Select one of our ingredients:
+  </div>
+  <div fxLayout="row" fxFlexLayoutAlign="space-around">
+    <app-menu-order
+      *ngFor="let ingredient of (ingredients$ | async)"
+      [content]="ingredient"
+    ></app-menu-order>
+  </div>
+</div>

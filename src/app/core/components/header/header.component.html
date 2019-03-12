@@ -1,6 +1,7 @@
 <mat-toolbar color="primary">
-  <div fxLayout="row" fxFlex>
-    <h1>Burguer Station</h1>
+  <div fxLayout="row" fxLayoutAlign="start center" fxFlex>
+    <h1 routerLink="/">Burguer Station</h1>
+    <app-nav-tabs class="push-left"></app-nav-tabs>
     <span fxFlex></span>
     <span>Welcome</span>
     <button mat-button [matMenuTriggerFor]="menu">{{user.name}}</button>
