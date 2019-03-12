@@ -16,6 +16,7 @@ import { reducers } from './store/reducers';
 import { MenuEffects } from './store/effects/menu.effects';
 import { MenuOrderComponent } from './components/menu-order/menu-order.component';
 import { OrderEffects } from './store/effects/order.effects';
+import { MatRippleModule } from '@angular/material/core';
 
 const routes: Routes = [
   {
@@ -49,7 +50,8 @@ const routes: Routes = [
     MatCardModule,
     MatButtonModule,
     MatListModule,
-    MatCheckboxModule
+    MatCheckboxModule,
+    MatRippleModule
   ],
   exports: [RouterModule]
 })

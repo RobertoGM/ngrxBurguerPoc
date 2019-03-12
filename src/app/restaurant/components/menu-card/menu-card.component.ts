@@ -7,12 +7,9 @@ import { Menu } from '../../models/menu.model';
   styleUrls: ['./menu-card.component.scss']
 })
 export class MenuCardComponent implements OnInit {
-
   @Input() menu: Menu;
 
-  constructor() { }
+  constructor() {}
 
-  ngOnInit() {
-  }
-
+  ngOnInit() {}
 }

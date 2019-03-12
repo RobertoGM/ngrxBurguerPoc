@@ -8,7 +8,7 @@ export interface State {
   loading: boolean;
   menuSelected: Menu;
   baseMeat: Ingredient;
-  ingredients: Ingredient[];
+  ingredients: { [id: number]: Ingredient };
 }
 
 export const initialState: State = {
@@ -17,7 +17,7 @@ export const initialState: State = {
   loading: false,
   menuSelected: undefined,
   baseMeat: undefined,
-  ingredients: []
+  ingredients: {}
 };
 
 export function reducer(state = initialState, action: OrderActionUnion): State {
@@ -44,10 +44,7 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
       );
 
       const baseMeatEntities = baseMeat.reduce(
-        (
-          entities: { [id: number]: Ingredient },
-          ingredient: Ingredient
-        ) => {
+        (entities: { [id: number]: Ingredient }, ingredient: Ingredient) => {
           return {
             ...entities,
             [ingredient.id]: ingredient
@@ -68,7 +65,7 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
       return {
         ...state,
         menuSelected: action.payload,
-        ingredients: [],
+        ingredients: {},
         baseMeat: undefined
       };
     }
@@ -82,11 +79,26 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
     }
 
     case OrderActionTypes.SelectIngredient: {
-      return {
-        ...state,
-        menuSelected: undefined,
-        ingredients: [action.payload, ...state.ingredients]
-      };
+      let entities;
+      if (state.ingredients[action.payload.id]) {
+        const {
+          [action.payload.id]: removed,
+          ...ingredientEntities
+        } = state.ingredients;
+        return {
+          ...state,
+          ingredients: ingredientEntities
+        };
+      } else {
+        entities = {
+          ...state.ingredients,
+          [action.payload.id]: action.payload
+        };
+        return {
+          ...state,
+          ingredients: entities
+        };
+      }
     }
 
     default: {
@@ -96,8 +108,10 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
 }
 
 export const getOrderLoading = (state: State) => state.loading;
-export const getOrderIngredientEntities = (state: State) => state.ingredientEntities;
+export const getOrderIngredientEntities = (state: State) =>
+  state.ingredientEntities;
 export const getOrderIngredients = (state: State) => state.ingredients;
-export const getOrderBaseMeatEntities = (state: State) => state.baseMeatEntities;
+export const getOrderBaseMeatEntities = (state: State) =>
+  state.baseMeatEntities;
 export const getOrderBaseMeat = (state: State) => state.baseMeat;
 export const getMenuSelected = (state: State) => state.menuSelected;

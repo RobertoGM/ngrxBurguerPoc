@@ -1,4 +1,4 @@
-<div class="menu-body" fxLayout="column" fxFlex>
+<div class="order-body" fxLayout="column" fxFlex>
   <div fxLayoutAlign="start">
     <button mat-button color="primary" routerLink="/">Back to landpage</button>
   </div>
@@ -9,6 +9,8 @@
     <app-menu-order
       *ngFor="let menu of (menus$ | async)"
       [content]="menu"
+      [contentSelection]="selectedMenu$ | async"
+      (selected)="menuSelected($event)"
     ></app-menu-order>
   </div>
   <h1>Or maybe you can select your custom burguer</h1>
@@ -19,15 +21,21 @@
     <app-menu-order
       *ngFor="let baseMeat of (baseMeats$ | async)"
       [content]="baseMeat"
+      [contentSelection]="selectedBaseMeat$ | async"
+      (selected)="baseMeatSelected($event)"
     ></app-menu-order>
   </div>
   <div>
-    Select one of our ingredients:
+    Select as much ingredients as you want:
   </div>
   <div fxLayout="row" fxFlexLayoutAlign="space-around">
     <app-menu-order
       *ngFor="let ingredient of (ingredients$ | async)"
       [content]="ingredient"
+      [contentSelectionArray]="selectedIngredients$ | async"
+      (selected)="ingredientSelected($event)"
     ></app-menu-order>
   </div>
+
+  <h1>TOTAL PRICE: {{getOrderPrice$ | async}}</h1>
 </div>

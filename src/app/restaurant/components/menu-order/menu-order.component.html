@@ -1,4 +1,4 @@
-<mat-card (click)="selection()" class="menu-card-body">
+<mat-card class="content-card-body" [ngClass]="{contentSelected: contentSelection?.id === content.id || ingredientSelected}" (click)="selection()" matRipple>
   <mat-card-header>
     <mat-card-title>{{content.name}}</mat-card-title>
     <mat-card-subtitle>{{content.price}}€</mat-card-subtitle>
