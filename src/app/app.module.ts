@@ -8,15 +8,18 @@ import { environment } from 'src/environments/environment';
 import { CoreModule } from './core/core.module';
 import { AppComponent } from './core/containers/app-component/app.component';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthGuard } from './login/services/auth-guard.service';
-import { LoginModule } from './login/login.module';
+import { AuthGuard } from './core/services/guards/auth-guard.service';
 
 export const routes: Routes = [
   { path: '', pathMatch: 'full', redirectTo: 'restaurant' },
   {
+    path: 'login',
+    loadChildren: './login/login.module#LoginModule'
+  },
+  {
     path: 'restaurant',
     loadChildren: './restaurant/restaurant.module#RestaurantModule',
-    canActivate: [AuthGuard],
+    canActivate: [AuthGuard]
   },
   { path: '**', pathMatch: 'full', redirectTo: 'login' }
 ];
@@ -27,10 +30,9 @@ export const routes: Routes = [
     BrowserModule,
     BrowserAnimationsModule,
     CoreModule,
-    LoginModule,
     RouterModule.forRoot(routes),
     EffectsModule.forRoot([]),
-    !environment.production ? StoreDevtoolsModule.instrument() : [],
+    !environment.production ? StoreDevtoolsModule.instrument() : []
   ],
   bootstrap: [AppComponent]
 })

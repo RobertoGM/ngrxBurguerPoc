@@ -3,8 +3,8 @@ import { Observable } from 'rxjs';
 import { User } from 'src/app/login/models/login.model';
 import { Store, select } from '@ngrx/store';
 import * as fromRoot from '../../store/reducers';
-import * as LoginSelectors from '../../../login/store/selectors/login.selector';
-import * as LoginActions from '../../../login/store/actions/login.actions';
+import * as AuthSelectors from '../../store/selectors/auth.selector';
+import * as AuthActions from '../../store/actions/auth.actions';
 
 @Component({
   selector: 'app-root',
@@ -13,13 +13,11 @@ import * as LoginActions from '../../../login/store/actions/login.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class AppComponent {
-  userLogged$: Observable<User> = this.store.pipe(
-    select(LoginSelectors.getUser)
-  );
+  userLogged$: Observable<User> = this.store.pipe(select(AuthSelectors.getUser));
 
   constructor(private store: Store<fromRoot.State>) {}
 
   logout(): void {
-    this.store.dispatch(new LoginActions.Logout());
+    this.store.dispatch(new AuthActions.Logout());
   }
 }

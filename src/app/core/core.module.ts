@@ -11,18 +11,21 @@ import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatMenuModule } from '@angular/material/menu';
 import { MatButtonModule } from '@angular/material/button';
 import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
+import { AuthEffects } from './store/effects/auth.effects';
+import { EffectsModule } from '@ngrx/effects';
 
 @NgModule({
   declarations: [AppComponent, HeaderComponent, NavTabsComponent],
   imports: [
     CommonModule,
     StoreModule.forRoot(reducers),
+    EffectsModule.forFeature([AuthEffects]),
     RouterModule,
     StoreRouterConnectingModule.forRoot(),
     MatToolbarModule,
     FlexLayoutModule,
     MatMenuModule,
-    MatButtonModule,
+    MatButtonModule
   ]
 })
 export class CoreModule {}

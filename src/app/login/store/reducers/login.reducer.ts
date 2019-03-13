@@ -1,4 +1,4 @@
-import { AuthActionTypes, AuthActionsUnion } from '../actions/login.actions';
+import { LoginActionTypes, LoginActionsUnion } from '../actions/login.actions';
 
 export interface State {
   error: string | null;
@@ -7,20 +7,23 @@ export interface State {
 
 export const initialState: State = {
   error: null,
-  loading: false,
+  loading: false
 };
 
-export function reducer(state = initialState, action: AuthActionsUnion): State {
+export function reducer(
+  state = initialState,
+  action: LoginActionsUnion
+): State {
   switch (action.type) {
-    case AuthActionTypes.Login: {
+    case LoginActionTypes.Login: {
       return {
         ...state,
-        loading : true,
+        loading: true,
         error: null
       };
     }
 
-    case AuthActionTypes.LoginSuccess: {
+    case LoginActionTypes.LoginSuccess: {
       return {
         ...state,
         loading: false,
@@ -28,7 +31,7 @@ export function reducer(state = initialState, action: AuthActionsUnion): State {
       };
     }
 
-    case AuthActionTypes.LoginFail: {
+    case LoginActionTypes.LoginFail: {
       return {
         ...state,
         loading: false,

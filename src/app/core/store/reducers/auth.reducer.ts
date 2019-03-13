@@ -1,5 +1,5 @@
-import { AuthActionTypes, AuthActionsUnion } from '../actions/login.actions';
-import { User } from '../../models/login.model';
+import { User } from '../../../login/models/login.model';
+import { AuthActionUnion, AuthActionTypes } from '../actions/auth.actions';
 
 export interface State {
   loggedIn: boolean;
@@ -8,12 +8,14 @@ export interface State {
 
 export const initialState: State = {
   loggedIn: false,
-  user: null,
+  user: null
 };
 
-export function reducer(state = initialState, action: AuthActionsUnion): State {
+export function reducer(
+  state = initialState,
+  action: AuthActionUnion
+): State {
   switch (action.type) {
-
     case AuthActionTypes.LoginSuccess: {
       return {
         ...state,

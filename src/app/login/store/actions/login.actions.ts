@@ -1,43 +1,30 @@
 import { Action } from '@ngrx/store';
 import { Authenticate, User } from '../../models/login.model';
 
-export enum AuthActionTypes {
-  Login = '[Auth] Login',
-  Logout = '[Auth] Logout',
-  LoginSuccess = '[Auth] Login Success',
-  LoginFail = '[Auth] Login Failure',
-  LoginRedirect = '[Auth] Login Redirect',
+export enum LoginActionTypes {
+  Login = '[Login] Login',
+  Logout = '[Login] Logout',
+  LoginSuccess = '[Login] Login Success',
+  LoginFail = '[Login] Login Failure',
 }
 
 export class Login implements Action {
-  readonly type = AuthActionTypes.Login;
+  readonly type = LoginActionTypes.Login;
 
-  constructor(public payload: Authenticate) { }
+  constructor(public payload: Authenticate) {}
 }
 
 export class LoginSuccess implements Action {
-  readonly type = AuthActionTypes.LoginSuccess;
-
-  constructor(public payload: {user: User}) {}
+  readonly type = LoginActionTypes.LoginSuccess;
 }
 
 export class LoginFail implements Action {
-  readonly type = AuthActionTypes.LoginFail;
+  readonly type = LoginActionTypes.LoginFail;
 
-  constructor(public payload: any) { }
+  constructor(public payload: any) {}
 }
 
-export class Logout implements Action {
-  readonly type = AuthActionTypes.Logout;
-}
-
-export class LoginRedirect implements Action {
-  readonly type = AuthActionTypes.LoginRedirect;
-}
-
-export type AuthActionsUnion =
+export type LoginActionsUnion =
   | Login
   | LoginSuccess
-  | LoginFail
-  | LoginRedirect
-  | Logout;
+  | LoginFail;

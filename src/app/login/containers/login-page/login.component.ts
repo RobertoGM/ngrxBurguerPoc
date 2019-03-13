@@ -3,6 +3,7 @@ import { select, Store } from '@ngrx/store';
 import { Authenticate } from '../../models/login.model';
 
 import * as LoginSelectors from '../../store/selectors/login.selector';
+import * as AuthSelectors from '../../../core/store/selectors/auth.selector';
 import * as LoginState from '../../store/reducers';
 import * as AuthActions from '../../store/actions/login.actions';
 
@@ -15,7 +16,7 @@ import * as AuthActions from '../../store/actions/login.actions';
 export class LoginComponent implements OnInit {
   pending$ = this.store.pipe(select(LoginSelectors.getLoginPageLoading));
   error$ = this.store.pipe(select(LoginSelectors.getLoginPageError));
-  user$ = this.store.pipe(select(LoginSelectors.getUser));
+  user$ = this.store.pipe(select(AuthSelectors.getUser));
 
   constructor(private store: Store<LoginState.State>) {}
 

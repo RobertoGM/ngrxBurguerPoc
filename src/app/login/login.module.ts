@@ -4,7 +4,6 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginComponent } from './containers/login-page/login.component';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
-import { AuthEffects } from './store/effects/auth.effects';
 import { ReactiveFormsModule } from '@angular/forms';
 import { MatCardModule } from '@angular/material/card';
 import { LoginFormComponent } from './components/login-form/login-form.component';
@@ -12,10 +11,11 @@ import { MatInputModule } from '@angular/material/input';
 import { reducers } from './store/reducers';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { MatButtonModule } from '@angular/material/button';
+import { LoginEffects } from './store/effects/login.effects';
 
 const routes: Routes = [
   {
-    path: 'login',
+    path: '',
     component: LoginComponent
   }
 ];
@@ -25,8 +25,8 @@ const routes: Routes = [
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature('auth', reducers),
-    EffectsModule.forFeature([AuthEffects]),
+    StoreModule.forFeature('login', reducers),
+    EffectsModule.forFeature([LoginEffects]),
     MatCardModule,
     MatButtonModule,
     MatInputModule,

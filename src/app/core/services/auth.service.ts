@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, throwError } from 'rxjs';
-import { Authenticate, User } from '../models/login.model';
+import { Authenticate, User } from '../../login/models/login.model';
 
 
 @Injectable({

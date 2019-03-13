@@ -3,9 +3,9 @@ import { CanActivate } from '@angular/router';
 import { Store, select } from '@ngrx/store';
 import { Observable } from 'rxjs';
 import { map, take } from 'rxjs/operators';
-import * as AuthActions from '../store/actions/login.actions';
-import * as fromAuth from '../store/reducers';
-import * as loginSelectors from '../store/selectors/login.selector';
+import * as AuthActions from '../../store/actions/auth.actions';
+import * as fromAuth from '../../../login/store/reducers';
+import * as authSelectors from '../../store/selectors/auth.selector';
 
 @Injectable({
   providedIn: 'root',
@@ -15,10 +15,10 @@ export class AuthGuard implements CanActivate {
 
   canActivate(): Observable<boolean> {
     return this.store.pipe(
-      select(loginSelectors.getLoggedIn),
+      select(authSelectors.getLoggedIn),
       map(authed => {
         if (!authed) {
-          this.store.dispatch(new AuthActions.LoginRedirect());
+          this.store.dispatch(new AuthActions.AuthRedirect());
           return false;
         }
 
