@@ -1,17 +1,18 @@
 import { Menu } from '../../models/menu.model';
 import { MenuActionUnion, MenuActionTypes } from '../actions/menu.actions';
+import { createEntityAdapter, EntityState } from '@ngrx/entity';
 
-export interface State {
-  entities: { [id: number]: Menu };
+export interface State extends EntityState<Menu> {
   loaded: boolean;
   loading: boolean;
 }
 
-export const initialState: State = {
-  entities: {},
+export const adapter = createEntityAdapter<Menu>();
+
+const initialState: State = adapter.getInitialState({
   loaded: false,
   loading: false
-};
+});
 
 export function reducer(state = initialState, action: MenuActionUnion): State {
   switch (action.type) {
@@ -23,23 +24,7 @@ export function reducer(state = initialState, action: MenuActionUnion): State {
     }
 
     case MenuActionTypes.LoadMenuSuccess: {
-      const menus = action.payload;
-      const entities = menus.reduce(
-        (menuentities: { [id: number]: Menu }, menu: Menu) => {
-          return {
-            ...menuentities,
-            [menu.id]: menu
-          };
-        },
-        { ...state.entities }
-      );
-
-      return {
-        ...state,
-        loading: false,
-        loaded: true,
-        entities
-      };
+      return adapter.addAll(action.payload, state);
     }
 
     default: {
@@ -50,4 +35,3 @@ export function reducer(state = initialState, action: MenuActionUnion): State {
 
 export const getMenuLoading = (state: State) => state.loading;
 export const getMenuLoaded = (state: State) => state.loaded;
-export const getMenuEntities = (state: State) => state.entities;

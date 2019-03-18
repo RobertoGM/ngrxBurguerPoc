@@ -9,43 +9,37 @@ export const selectOrderStoreState = createSelector(
   (state: RestaurantState) => state.order
 );
 
-export const getIngredients = createSelector(
-  selectOrderStoreState,
-  fromOrder.getOrderIngredientEntities
+export const selectBaseMeats = createSelector(
+  selectMenuState,
+  (state: RestaurantState) => state.order.baseMeatEntities
 );
 
-export const getAllIngredients = createSelector(
-  getIngredients,
-  (entities: { [id: number]: Ingredient }) =>
-    Object.keys(entities).map(id => entities[parseInt(id, 10)])
+export const selectIngredients = createSelector(
+  selectMenuState,
+  (state: RestaurantState) => state.order.ingredientEntities
 );
 
-export const getBaseMeats = createSelector(
-  selectOrderStoreState,
-  fromOrder.getOrderBaseMeatEntities
-);
-
-export const getAllBaseMeats = createSelector(
-  getBaseMeats,
-  (entities: { [id: number]: Ingredient }) =>
-    Object.keys(entities).map(id => entities[parseInt(id, 10)])
-);
-
-export const getSelectedIngredients = createSelector(
-  selectOrderStoreState,
-  fromOrder.getOrderIngredients
-);
-
-export const getAllSelectedIngredients = createSelector(
-  getSelectedIngredients,
-  (entities: { [id: number]: Ingredient }) =>
-    Object.keys(entities).map(id => entities[parseInt(id, 10)])
+export const selectIngredientsSelected = createSelector(
+  selectMenuState,
+  (state: RestaurantState) => state.order.ingredients
 );
 
 export const getSelectedBaseMeat = createSelector(
   selectOrderStoreState,
   fromOrder.getOrderBaseMeat
 );
+
+export const {
+  selectAll: selectAllBaseMeat
+} = fromOrder.adapterBaseMeat.getSelectors(selectBaseMeats);
+
+export const {
+  selectAll: selectAllIngredients
+} = fromOrder.adapterIngredients.getSelectors(selectIngredients);
+
+export const {
+  selectAll: selectAllIngredientSelected
+} = fromOrder.adapterIngredientSelected.getSelectors(selectIngredientsSelected);
 
 export const getSelectedMenu = createSelector(
   selectOrderStoreState,
@@ -58,7 +52,7 @@ export const getOrderLoading = createSelector(
 );
 
 export const getOrderPrice = createSelector(
-  getAllSelectedIngredients,
+  selectAllIngredientSelected,
   getSelectedBaseMeat,
   getSelectedMenu,
   (ingredients: Ingredient[], baseMeat: Ingredient, menu: Menu) => {

@@ -13,9 +13,16 @@ import { MatButtonModule } from '@angular/material/button';
 import { NavTabsComponent } from './components/nav-tabs/nav-tabs.component';
 import { AuthEffects } from './store/effects/auth.effects';
 import { EffectsModule } from '@ngrx/effects';
+import { SidenavComponent } from './components/sidenav/sidenav.component';
+import { MatSidenavModule } from '@angular/material/sidenav';
 
 @NgModule({
-  declarations: [AppComponent, HeaderComponent, NavTabsComponent],
+  declarations: [
+    AppComponent,
+    HeaderComponent,
+    NavTabsComponent,
+    SidenavComponent
+  ],
   imports: [
     CommonModule,
     StoreModule.forRoot(reducers),
@@ -25,7 +32,8 @@ import { EffectsModule } from '@ngrx/effects';
     MatToolbarModule,
     FlexLayoutModule,
     MatMenuModule,
-    MatButtonModule
+    MatButtonModule,
+    MatSidenavModule
   ]
 })
 export class CoreModule {}

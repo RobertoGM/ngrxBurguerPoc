@@ -1,23 +1,32 @@
 import { Ingredient } from '../../models/ingredients.model';
 import { OrderActionTypes, OrderActionUnion } from '../actions/orders.actions';
 import { Menu } from '../../models/menu.model';
+import { EntityState, createEntityAdapter } from '@ngrx/entity';
+
+interface BaseMeatState extends EntityState<Ingredient> {}
+interface IngredientState extends EntityState<Ingredient> {}
+interface IngredientSelectedState extends EntityState<Ingredient> {}
 
 export interface State {
-  baseMeatEntities: { [id: number]: Ingredient };
-  ingredientEntities: { [id: number]: Ingredient };
+  baseMeatEntities: BaseMeatState;
+  ingredientEntities: IngredientState;
   loading: boolean;
   menuSelected: Menu;
   baseMeat: Ingredient;
-  ingredients: { [id: number]: Ingredient };
+  ingredients: IngredientSelectedState;
 }
 
+export const adapterBaseMeat = createEntityAdapter<Ingredient>();
+export const adapterIngredients = createEntityAdapter<Ingredient>();
+export const adapterIngredientSelected = createEntityAdapter<Ingredient>();
+
 export const initialState: State = {
-  baseMeatEntities: {},
-  ingredientEntities: {},
+  baseMeatEntities: adapterBaseMeat.getInitialState(),
+  ingredientEntities: adapterIngredients.getInitialState(),
   loading: false,
   menuSelected: undefined,
   baseMeat: undefined,
-  ingredients: {}
+  ingredients: adapterIngredientSelected.getInitialState()
 };
 
 export function reducer(state = initialState, action: OrderActionUnion): State {
@@ -30,42 +39,54 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
     }
 
     case OrderActionTypes.LoadIngredientsSuccess: {
-      const ingredients = action.payload.ingredients;
-      const baseMeat = action.payload.baseMeat;
+      // const ingredients = action.payload.ingredients;
+      // const baseMeat = action.payload.baseMeat;
 
-      const ingredientEntities = ingredients.reduce(
-        (entities: { [id: number]: Ingredient }, ingredient: Ingredient) => {
-          return {
-            ...entities,
-            [ingredient.id]: ingredient
-          };
-        },
-        { ...state.ingredientEntities }
-      );
+      // const ingredientEntities = ingredients.reduce(
+      //   (entities: { [id: number]: Ingredient }, ingredient: Ingredient) => {
+      //     return {
+      //       ...entities,
+      //       [ingredient.id]: ingredient
+      //     };
+      //   },
+      //   { ...state.ingredientEntities }
+      // );
 
-      const baseMeatEntities = baseMeat.reduce(
-        (entities: { [id: number]: Ingredient }, ingredient: Ingredient) => {
-          return {
-            ...entities,
-            [ingredient.id]: ingredient
-          };
-        },
-        { ...state.baseMeatEntities }
-      );
+      // const baseMeatEntities = baseMeat.reduce(
+      //   (entities: { [id: number]: Ingredient }, ingredient: Ingredient) => {
+      //     return {
+      //       ...entities,
+      //       [ingredient.id]: ingredient
+      //     };
+      //   },
+      // { ...state.baseMeatEntities }
 
+      // );
       return {
         ...state,
-        loading: false,
-        ingredientEntities,
-        baseMeatEntities
+        ingredientEntities: adapterIngredients.addMany(
+          action.payload.ingredients,
+          state.ingredientEntities
+        ),
+        baseMeatEntities: adapterBaseMeat.addMany(
+          action.payload.baseMeat,
+          state.baseMeatEntities
+        )
       };
+
+      // return {
+      //   ...state,
+      //   loading: false,
+      //   ingredientEntities,
+      //   baseMeatEntities
+      // };
     }
 
     case OrderActionTypes.SelectMenu: {
       return {
         ...state,
         menuSelected: action.payload,
-        ingredients: {},
+        ingredients: adapterIngredientSelected.removeAll(state.ingredients),
         baseMeat: undefined
       };
     }
@@ -79,27 +100,18 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
     }
 
     case OrderActionTypes.SelectIngredient: {
-      let entities;
-      entities = {
-        ...state.ingredients,
-        [action.payload.id]: action.payload
-      };
       return {
         ...state,
         menuSelected: undefined,
-        ingredients: entities
+        ingredients: adapterIngredientSelected.addOne(action.payload, state.ingredients)
       };
     }
 
     case OrderActionTypes.RemoveIngredient: {
-      const {
-        [action.payload.id]: removed,
-        ...ingredientEntities
-      } = state.ingredients;
       return {
         ...state,
         menuSelected: undefined,
-        ingredients: ingredientEntities
+        ingredients: adapterIngredientSelected.removeOne(action.payload.id, state.ingredients)
       };
     }
 
@@ -110,6 +122,7 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
 }
 
 export const getOrderLoading = (state: State) => state.loading;
+export const getState = (state: State) => state;
 export const getOrderIngredientEntities = (state: State) =>
   state.ingredientEntities;
 export const getOrderIngredients = (state: State) => state.ingredients;

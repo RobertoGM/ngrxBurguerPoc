@@ -9,6 +9,7 @@ import { User } from 'src/app/login/models/login.model';
 export class HeaderComponent implements OnInit {
   @Input() user: User;
   @Output() logout = new EventEmitter<void>();
+  @Output() openClose = new EventEmitter<void>();
 
   constructor() {}
 
@@ -16,5 +17,9 @@ export class HeaderComponent implements OnInit {
 
   logoutPressed(): void {
     this.logout.emit();
+  }
+
+  openCloseSidenav(): void {
+    this.openClose.emit();
   }
 }

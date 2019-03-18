@@ -26,7 +26,7 @@ export class MenuOrderComponent implements OnChanges {
 
   ngOnChanges() {
     if (this.contentSelectionArray) {
-      this.ingredientSelected = !!this.contentSelectionArray[this.content.id];
+      this.ingredientSelected = !!this.contentSelectionArray.find( (ingredient) => ingredient.id === this.content.id);
     }
   }
 

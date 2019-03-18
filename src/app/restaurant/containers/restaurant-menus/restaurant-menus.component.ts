@@ -11,7 +11,7 @@ import * as MenuActions from '../../store/actions/menu.actions';
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class RestaurantMenusComponent implements OnInit {
-  menus$ = this.store.pipe(select(MenuSelectors.getAllMenus));
+  menus$ = this.store.pipe(select(MenuSelectors.selectAll));
 
   constructor(private store: Store<MenuState.State>) {}
 

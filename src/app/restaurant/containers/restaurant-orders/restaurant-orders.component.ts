@@ -14,17 +14,19 @@ import { Ingredient } from '../../models/ingredients.model';
   styleUrls: ['./restaurant-orders.component.scss']
 })
 export class RestaurantOrdersComponent implements OnInit {
-  menus$ = this.store.pipe(select(MenuSelectors.getAllMenus));
+  menus$ = this.store.pipe(select(MenuSelectors.selectAll));
   selectedMenu$ = this.store.pipe(select(OrderSelectors.getSelectedMenu));
 
-  baseMeats$ = this.store.pipe(select(OrderSelectors.getAllBaseMeats));
+  baseMeats$ = this.store.pipe(select(OrderSelectors.selectAllBaseMeat));
+
   selectedBaseMeat$ = this.store.pipe(
     select(OrderSelectors.getSelectedBaseMeat)
   );
 
-  ingredients$ = this.store.pipe(select(OrderSelectors.getAllIngredients));
+  ingredients$ = this.store.pipe(select(OrderSelectors.selectAllIngredients));
+
   selectedIngredients$ = this.store.pipe(
-    select(OrderSelectors.getSelectedIngredients)
+    select(OrderSelectors.selectAllIngredientSelected)
   );
 
   getOrderPrice$ = this.store.pipe(select(OrderSelectors.getOrderPrice));

@@ -1,4 +1,11 @@
-<app-header *ngIf="userLogged$ | async as userLogged" [user]="userLogged" (logout)="logout()"></app-header>
-<div>
-  <router-outlet></router-outlet>
-</div>
+<app-sidenav (openedClose)="openedClosed()" [sidenavOpen]="sidenavOpen$ | async">
+  <app-header
+    *ngIf="(userLogged$ | async) as userLogged"
+    [user]="userLogged"
+    (logout)="logout()"
+    (openClose)="openedClosed()"
+  ></app-header>
+  <div>
+    <router-outlet></router-outlet>
+  </div>
+</app-sidenav>

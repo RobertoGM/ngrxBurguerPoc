@@ -13,19 +13,13 @@ export function reducer(
   action: LayoutActionsUnion
 ): State {
   switch (action.type) {
-    case LayoutActionTypes.OpenSidenav: {
+    case LayoutActionTypes.OpenCloseSidenav: {
       return {
         ...state,
-        sidenavOpen: true,
+        sidenavOpen: !state.sidenavOpen,
       };
     }
 
-    case LayoutActionTypes.CloseSidenav: {
-      return {
-        ...state,
-        sidenavOpen: false,
-      };
-    }
 
     default: {
       return state;
