@@ -39,29 +39,7 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
     }
 
     case OrderActionTypes.LoadIngredientsSuccess: {
-      // const ingredients = action.payload.ingredients;
-      // const baseMeat = action.payload.baseMeat;
 
-      // const ingredientEntities = ingredients.reduce(
-      //   (entities: { [id: number]: Ingredient }, ingredient: Ingredient) => {
-      //     return {
-      //       ...entities,
-      //       [ingredient.id]: ingredient
-      //     };
-      //   },
-      //   { ...state.ingredientEntities }
-      // );
-
-      // const baseMeatEntities = baseMeat.reduce(
-      //   (entities: { [id: number]: Ingredient }, ingredient: Ingredient) => {
-      //     return {
-      //       ...entities,
-      //       [ingredient.id]: ingredient
-      //     };
-      //   },
-      // { ...state.baseMeatEntities }
-
-      // );
       return {
         ...state,
         ingredientEntities: adapterIngredients.addMany(
@@ -74,12 +52,6 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
         )
       };
 
-      // return {
-      //   ...state,
-      //   loading: false,
-      //   ingredientEntities,
-      //   baseMeatEntities
-      // };
     }
 
     case OrderActionTypes.SelectMenu: {
