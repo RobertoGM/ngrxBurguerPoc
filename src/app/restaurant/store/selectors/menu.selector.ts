@@ -12,9 +12,6 @@ export const getMenuLoading = createSelector(
   fromMenu.getMenuLoading
 );
 
-export const {
-  selectAll,
-  selectEntities,
-  selectIds,
-  selectTotal
-} = fromMenu.adapter.getSelectors(selectMenuStoreState);
+export const { selectAll } = fromMenu.adapter.getSelectors(
+  selectMenuStoreState
+);

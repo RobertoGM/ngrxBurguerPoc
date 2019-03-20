@@ -94,11 +94,5 @@ export function reducer(state = initialState, action: OrderActionUnion): State {
 }
 
 export const getOrderLoading = (state: State) => state.loading;
-export const getState = (state: State) => state;
-export const getOrderIngredientEntities = (state: State) =>
-  state.ingredientEntities;
-export const getOrderIngredients = (state: State) => state.ingredients;
-export const getOrderBaseMeatEntities = (state: State) =>
-  state.baseMeatEntities;
 export const getOrderBaseMeat = (state: State) => state.baseMeat;
 export const getMenuSelected = (state: State) => state.menuSelected;
